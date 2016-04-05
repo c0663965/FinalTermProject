@@ -10,7 +10,7 @@ h1{
     line-height:150px;
     font-size:4.0em;
     text-align:center;
-    background-image:url('images/food.jpg');
+    background-image:url('images/page1/food.jpg');
 }
 
 .Table {
@@ -24,15 +24,15 @@ h1{
     font-size:1.1em;
     text-shadow:2px 2px darkgray;
     font-weight:bold;
-    background-image:url('images/food.jpg');
+    background-image:url('images/page1/food.jpg');
 }
 
 .column1{
-    width:300px;
+    width:320px;
 }
 
 .column3{
-    width:120px;
+    width:130px;
     
 }
 
@@ -56,6 +56,12 @@ tr{
 
 td{
     text-indent:5px; 
+}
+
+a{
+    color:darkblue;
+    font-weight:bold; 
+    text-decoration:none;
 }
 
 th:nth-child(7){

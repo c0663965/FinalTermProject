@@ -19,6 +19,7 @@ public class DBconnection {
 
     private String db = "test";
     private String table = "bistro";
+    private List<Restaurant> bistros;
     
     
     public String getDb() {
@@ -51,7 +52,7 @@ public class DBconnection {
         
         getConnection();
 
-        List<Restaurant> bistros = new ArrayList<>();
+        bistros = new ArrayList<>();
 
         try {
             Connection conn = getConnection();
@@ -84,5 +85,9 @@ public class DBconnection {
         }
 
         return bistros;
+    }
+    
+    public Restaurant getBistroById(int id){
+        return bistros.get(id);
     }
 }
