@@ -14,6 +14,11 @@
         </div>
 	<div id="header">
             <div id="tfheader"/>
+                <h:form>
+                    <h:inputText class="tftextinput" value="#{postController.searchValue}"></h:inputText>
+                    <h:commandButton class="tfbutton" value="search" action="#{postController.getPostByTitle(postController.searchValue)}"/>
+                
+                </h:form>
                 <form id="tfnewsearch" method="get" action="http://www.google.com">
                     <input type="text" class="tftextinput" name="q" size="21" maxlength="120"/>
                     <input type="submit" value="Search" class="tfbutton"/>
@@ -33,11 +38,15 @@
 	<div id="page">
             <div id="content">
                 <div class="post">
-                    <h2 class="title"><a href="#">Welcome to Creevykeel</a></h2>
-                    <p class="meta">Posted by <a href="#">Someone</a> on March 10, 2008
-                            &nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>
+                    <h2 class="title"><a href="#">#{postController.currentPost.name} #{post.name} </a></h2>
                     <div class="entry">
-                            <p><img src="images/page2/img08.jpg" width="143" height="143" alt="" class="alignleft border" />This is <strong>Creevykeel </strong>, a free, fully standards-compliant CSS template designed by FreeCssTemplates<a href="http://www.nodethirtythree.com/"></a> for <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.  The picture in this template is from <a href="#">PDPhoto.org</a>. This free template is released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attributions 2.5</a> license, so you’re pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the footer intact. Aside from that, have fun with it :)					</p>
+                        <p><img src="#{postController.currentPost.rating_image_url}" width="143" height="143" alt="" class="alignleft border" />
+                            Address : #{postController.currentPost.address} #{post.address}<br/>
+                            Menu : #{postController.currentPost.menu}<br/>
+                            Price : #{postController.currentPost.price}<br/>
+                            Phone: #{postController.currentPost.phone}<br/>
+                            
+                        </p>
                             <p class="clearfix">&nbsp;</p>
                     </div>
                 </div>

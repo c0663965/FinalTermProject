@@ -60,38 +60,37 @@
             headerClass="Header"
             rowClasses="Row"
             columnClasses="column1,column2,column3,column4,column5,column6,column7"
-            value="#{data.bistros}" var="restaurant">
+            value="#{postController.posts}" var="restaurant">
             
             <h:column headerClass="th">
                 <f:facet name="header">Name</f:facet>
                     <h:form> 
-                        <h:commandLink value="#{restaurant.NAME}" action="#{pageController.moveToPage}">
-                        </h:commandLink>    
+                        <h:commandLink action="#{postController.viewPost(restaurant)}">#{restaurant.name} </h:commandLink>    
                     </h:form> 
             </h:column>
             <h:column headerClass="th">
                <f:facet name="header">Menu</f:facet>
-               #{restaurant.MENU}
+               #{restaurant.menu}
             </h:column>
             <h:column headerClass="th">
                <f:facet name="header">Price</f:facet>
-               #{restaurant.PRICE}
+               #{restaurant.price}
             </h:column>        
             <h:column headerClass="th">
                <f:facet name="header">Address</f:facet>
-               #{restaurant.ADDRESS}
+               #{restaurant.address}
             </h:column>        
             <h:column headerClass="th">
                <f:facet name="header">Phone</f:facet>
-               #{restaurant.PHONE}
+               #{restaurant.phone}
             </h:column>        
             <h:column headerClass="th">
                <f:facet name="header">Rating</f:facet>
-               <h:graphicImage value="#{restaurant.RATING_IMAGE_URL}"/>
+               <h:graphicImage value="#{restaurant.rating_image_url}"/>
             </h:column>
             <h:column headerClass="th">
                <f:facet name="header">Rating_hidden</f:facet>
-               #{restaurant.RATING}
+               #{restaurant.rating}
             </h:column>        
         </h:dataTable>
     </h:body>
