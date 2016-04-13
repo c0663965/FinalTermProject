@@ -91,7 +91,14 @@
             <h:column headerClass="th">
                <f:facet name="header">Rating_hidden</f:facet>
                #{restaurant.rating}
-            </h:column>        
+            </h:column>  
+            
+           
+		<h:form>
+    		<h:inputText value="#{userBean.userName}" />
+    		<h:commandButton value="Submit" action="user" />
+                </h:form>
+            
         </h:dataTable>
     </h:body>
 </html>
