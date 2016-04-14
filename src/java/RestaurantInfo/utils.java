@@ -8,13 +8,19 @@ package RestaurantInfo;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Saurabh
  */
 public class utils {
-    public static Connection getConnection() throws SQLException{
-       try {
+
+    /**
+     *
+     * @return @throws SQLException
+     */
+    public static Connection getConnection() throws SQLException {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(utils.class.getName()).log(Level.SEVERE, null, ex);

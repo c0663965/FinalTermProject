@@ -4,11 +4,19 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+/**
+ *
+ * @author Saurabh
+ */
 @ManagedBean
 @SessionScoped
 public class PageController implements Serializable {
- 
-	public String moveToPage(){
-	    return "each"; //outcome
-	}
+
+    /**
+     *
+     * @return
+     */
+    public String moveToPage() {
+        return "each"; //outcome
+    }
 }

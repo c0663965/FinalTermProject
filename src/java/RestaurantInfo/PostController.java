@@ -20,29 +20,44 @@ import java.util.logging.Logger;
 @ManagedBean
 @ApplicationScoped
 public class PostController {
+
     private List<post> posts;
     private post currentPost;
     private String searchValue;
     int size;
 
+    /**
+     *
+     * @return
+     */
     public int getSize() {
         return count();
     }
 
+    /**
+     *
+     * @param size
+     */
     public void setSize(int size) {
         this.size = size;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSearchValue() {
         return searchValue;
     }
 
+    /**
+     *
+     * @param searchValue
+     */
     public void setSearchValue(String searchValue) {
         this.searchValue = searchValue;
     }
-    
-    
-    
+
     /**
      * Retrieve the List of Post objects
      *
@@ -64,50 +79,48 @@ public class PostController {
     /**
      * No-arg Constructor -- sets up list from DB
      */
-    public PostController(){
+    public PostController() {
         currentPost = new post(-1, "", "", "", "", "", "", "", -1.0, -1.0, "", "", "", "");
         getPostFromDB();
     }
-    
+
     /**
      * Wipe the Posts list and update it from the DB
      */
-    public void getPostFromDB(){
+    public void getPostFromDB() {
         Connection conn;
         try {
             conn = utils.getConnection();
-        
-        
-        posts=new ArrayList<>();
-        Statement st=conn.createStatement();
-        ResultSet rs=st.executeQuery("select *from bistro");
-        while(rs.next()){
-            post p=new post( rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("menu"),
-                    rs.getString("price"),
-                    rs.getString("phone"),
-                    rs.getString("address"),
-                    rs.getString("postal_code"),
-                    rs.getString("country_code"),
-                    rs.getDouble("latitude"),
-                    rs.getDouble("longitude"),
-                    rs.getString("mobile_url"),
-                    rs.getString("rating"),
-                    rs.getString("rating_image_url"),
-                    rs.getString("snippet_text"));
-            posts.add(p);
-                    
-                    }
+
+            posts = new ArrayList<>();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select *from bistro");
+            while (rs.next()) {
+                post p = new post(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("menu"),
+                        rs.getString("price"),
+                        rs.getString("phone"),
+                        rs.getString("address"),
+                        rs.getString("postal_code"),
+                        rs.getString("country_code"),
+                        rs.getDouble("latitude"),
+                        rs.getDouble("longitude"),
+                        rs.getString("mobile_url"),
+                        rs.getString("rating"),
+                        rs.getString("rating_image_url"),
+                        rs.getString("snippet_text"));
+                posts.add(p);
+
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
-             // This Fails Silently -- Sets Post List as Empty
+            // This Fails Silently -- Sets Post List as Empty
             posts = new ArrayList<>();
         }
-        
+
     }
-    
-    
+
     /**
      * Retrieve a Post by ID
      *
@@ -147,40 +160,54 @@ public class PostController {
      */
     public String viewPost(post post) {
         currentPost = post;
-       
+
         return "each";
     }
+
+    /**
+     *
+     * @param post
+     * @return
+     */
     public String adminPost(post post) {
         currentPost = post;
-       
+
         return "edit";
     }
-    
-    public int count(){
+
+    /**
+     *
+     * @return
+     */
+    public int count() {
         Connection conn;
         try {
             conn = utils.getConnection();
-            Statement st=conn.createStatement();
-            ResultSet rs=st.executeQuery("select coutn(*) as count from bistro");      
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select coutn(*) as count from bistro");
             size = rs.getInt("count");
-            
-            } catch (SQLException ex) {
-                Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-            return size;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return size;
     }
 
-    public String editPost(){
+    /**
+     *
+     * @return
+     */
+    public String editPost() {
         Connection con;
-                
+
         try {
             con = utils.getConnection();
-            
+
             PreparedStatement pst = con.prepareStatement("Update bistro SET name = ?, menu = ?, price = ?, phone = ?, "
                     + "address = ?, postal_code = ?, country_code = ?, latitude = ?, longitude = ?, mobile_url = ?, "
                     + "rating = ?, snippet_text = ? where id = ?");
-            
+
             pst.setString(1, currentPost.getName());
             pst.setString(2, currentPost.getMenu());
             pst.setString(3, currentPost.getPrice());
@@ -194,24 +221,29 @@ public class PostController {
             pst.setString(11, currentPost.getRating());
             pst.setString(12, currentPost.getSnippet_text());
             pst.setInt(13, currentPost.getId());
-            
+
             pst.executeUpdate();
             con.close();
-                    
+
         } catch (SQLException ex) {
             Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
         }
         getPostFromDB();
         return "admin";
     }
-    public String addPost(){
+
+    /**
+     *
+     * @return
+     */
+    public String addPost() {
         Connection conn;
-        
+
         try {
             conn = utils.getConnection();
-            
+
             PreparedStatement pst = conn.prepareStatement("Insert into bistro(id, name, menu, price, phone, address, postal_code, country_code, latitude, longitude, mobile_url, rating, rating_image_url, snippet_text) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            
+
             pst.setInt(1, currentPost.getId());
             pst.setString(2, currentPost.getName());
             pst.setString(3, currentPost.getMenu());
@@ -226,22 +258,26 @@ public class PostController {
             pst.setString(12, currentPost.getRating());
             pst.setString(13, currentPost.getRating_image_url());
             pst.setString(14, currentPost.getSnippet_text());
-            
+
             int i = pst.executeUpdate();
             getPostFromDB();
             return "admin";
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    public String deletePost(){
+
+    /**
+     *
+     * @return
+     */
+    public String deletePost() {
         Connection con;
-                
+
         try {
-            con = utils.getConnection();            
+            con = utils.getConnection();
             PreparedStatement pst = con.prepareStatement("Delete from bistro where id = ? ");
             pst.setInt(1, currentPost.getId());
             pst.executeUpdate();
@@ -252,5 +288,5 @@ public class PostController {
         getPostFromDB();
         return "admin";
     }
-    
+
 }

@@ -36,56 +36,56 @@
             </div>
         </div>
         <div id="page">
-            
-             <h:dataTable 
-            styleClass="Table"
-            headerClass="Header"
-            rowClasses="Row"
-            columnClasses="column1,column2,column3,column4,column5,column6,column7"
-            value="#{postController.posts}" var="restaurant">
-            
-            <h:column headerClass="th">
-                <f:facet name="header">Name</f:facet>
+
+            <h:dataTable 
+                styleClass="Table"
+                headerClass="Header"
+                rowClasses="Row"
+                columnClasses="column1,column2,column3,column4,column5,column6,column7"
+                value="#{postController.posts}" var="restaurant">
+
+                <h:column headerClass="th">
+                    <f:facet name="header">Name</f:facet>
                     <h:form> 
                         <h:commandLink action="#{postController.viewPost(restaurant)}">#{restaurant.name} </h:commandLink>    
                     </h:form> 
-            </h:column>
-            <h:column headerClass="th">
-               <f:facet name="header">Menu</f:facet>
-               #{restaurant.menu}
-            </h:column>
-            <h:column headerClass="th">
-               <f:facet name="header">Price</f:facet>
-               #{restaurant.price}
-            </h:column>        
-            <h:column headerClass="th">
-               <f:facet name="header">Address</f:facet>
-               #{restaurant.address}
-            </h:column>        
-            <h:column headerClass="th">
-               <f:facet name="header">Phone</f:facet>
-               #{restaurant.phone}
-            </h:column>        
-            <h:column headerClass="th">
-               <f:facet name="header">Rating</f:facet>
-               <h:graphicImage value="#{restaurant.rating_image_url}"/>
-            </h:column>
-            <h:column headerClass="th">
-               <f:facet name="header">Rating_hidden</f:facet>
-               #{restaurant.rating}
-            </h:column>  
-            
-           
-		<h:form>
-    		<h:inputText value="#{userBean.userName}" />
-    		<h:commandButton value="Submit" action="user" />
+                </h:column>
+                <h:column headerClass="th">
+                    <f:facet name="header">Menu</f:facet>
+                        #{restaurant.menu}
+                </h:column>
+                <h:column headerClass="th">
+                    <f:facet name="header">Price</f:facet>
+                        #{restaurant.price}
+                </h:column>        
+                <h:column headerClass="th">
+                    <f:facet name="header">Address</f:facet>
+                        #{restaurant.address}
+                </h:column>        
+                <h:column headerClass="th">
+                    <f:facet name="header">Phone</f:facet>
+                        #{restaurant.phone}
+                </h:column>        
+                <h:column headerClass="th">
+                    <f:facet name="header">Rating</f:facet>
+                    <h:graphicImage value="#{restaurant.rating_image_url}"/>
+                </h:column>
+                <h:column headerClass="th">
+                    <f:facet name="header">Rating_hidden</f:facet>
+                        #{restaurant.rating}
+                </h:column>  
+
+
+                <h:form>
+                    <h:inputText value="#{userBean.userName}" />
+                    <h:commandButton value="Submit" action="user" />
                 </h:form>
-            
-        </h:dataTable>
+
+            </h:dataTable>
         </div>
     </h:body>
-    
+
     <footer><p class="lf">&copy; Copyright Sarnia Foodies</p> </footer>
-    
+
 </html>
 

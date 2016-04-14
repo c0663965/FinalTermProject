@@ -10,51 +10,83 @@ package RestaurantInfo;
  * @author gurvinder singh
  */
 import java.io.Serializable;
- 
+
+/**
+ *
+ * @author Saurabh
+ */
 public class User implements Serializable {
- 
+
     private String firstname;
-     
+
     private String lastname;
-     
-     
+
     private String comm;
-     
+
     private String email;
-     
- 
+
+    /**
+     *
+     * @return
+     */
     public String getFirstname() {
         return firstname;
     }
- 
+
+    /**
+     *
+     * @param firstname
+     */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
- 
+
+    /**
+     *
+     * @return
+     */
     public String getLastname() {
         return lastname;
     }
- 
+
+    /**
+     *
+     * @param lastname
+     */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
- 
- 
+
+    /**
+     *
+     * @return
+     */
     public String getInfo() {
         return comm;
     }
- 
+
+    /**
+     *
+     * @param comm
+     */
     public void setInfo(String comm) {
         this.comm = comm;
     }
-     
+
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
- 
+
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
- 
- 
+
 }

@@ -12,7 +12,10 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-
+/**
+ *
+ * @author Saurabh
+ */
 @ManagedBean(name = "data", eager = true)
 @SessionScoped
 public class DBconnection {
@@ -20,12 +23,19 @@ public class DBconnection {
     private String db = "test";
     private String table = "bistro";
     private List<Restaurant> bistros;
-    
-    
+
+    /**
+     *
+     * @return
+     */
     public String getDb() {
         return db;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTable() {
         return table;
     }
@@ -45,11 +55,15 @@ public class DBconnection {
 //        String name = "dbsample";
         String url = "jdbc:mysql://localhost:3306/" + db;
 
-        return DriverManager.getConnection(url, "root","");
+        return DriverManager.getConnection(url, "root", "");
     }
-    
+
+    /**
+     *
+     * @return @throws SQLException
+     */
     public List<Restaurant> getBistros() throws SQLException {
-        
+
         getConnection();
 
         bistros = new ArrayList<>();
@@ -57,7 +71,7 @@ public class DBconnection {
         try {
             Connection conn = getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table +" ORDER BY RATING DESC,NAME");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table + " ORDER BY RATING DESC,NAME");
 
             while (rs.next()) {
                 Restaurant bistro = new Restaurant();
@@ -79,15 +93,20 @@ public class DBconnection {
             }
 
             conn.close();
-            
+
         } catch (SQLException ex) {
             System.out.println("SQL Exception" + ex.getMessage());
         }
 
         return bistros;
     }
-    
-    public Restaurant getBistroById(int id){
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Restaurant getBistroById(int id) {
         return bistros.get(id);
     }
 }
