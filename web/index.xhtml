@@ -4,58 +4,40 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Sarnia Foodies</title>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="styles2.css"/> 
         <h:outputStylesheet library="css" name="styles.css"/> 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
-        <script>
-            $(document).ready(function(){
-                var temp;
-                
-                $("td").hover(function(){
-                    temp=$(this).css('background-color');
-                    $(this).css('color','white');
-                    $(this).siblings().css('color','white');
-                    $(this).find("a").css('color','white');
-                    $(this).siblings().eq(0).children().css('color','white');
-                    $(this).siblings().css('background-color','#669cff');
-                    $(this).css('background-color','#669cff');
-                    $(this).siblings().eq(0).css('background-color','#669cff');
-                },
-                function(){
-                    $(this).css('color','black');							
-                    $(this).siblings().css('color','black');
-                    $(this).find("a").css('color','darkblue');
-                    $(this).css('background-color',temp);
-                    $(this).siblings().css('background-color',temp);
-                });
-                
-                $("tr").each(function(){
-                    switch(parseFloat($(this).children().eq(6).text()))
-                    {
-                        case 5.0 : $(this).css("background-color","#e9e9e9");	
-                            break;
-                        case 4.5 : $(this).css("background-color","#ECF0EC");
-                            break;
-                        case 4.0 : $(this).css("background-color","#D7E1EE");
-                            break;
-                        case 3.5 : $(this).css("background-color","lightblue");
-                            break;
-                        case 3.0 : $(this).css("background-color","#ffedcc");
-                            break;    
-                    }
-                });
-                    
-                $("tr:nth-child(even)").css("background-color","white");   
-                $(".Table").tablesorter();
-            })//The end of document 
-           
-        </script>
     </h:head>
     <h:body>
-        <h1> Enjoy Sarnia With Taste </h1>
-        
-        <h:dataTable 
+        <div id="wrapper">
+            <div id="logo">
+                <h1><a href="index.xhtml">Sarnia Foodies</a></h1>
+                <br/>
+                <p>Enjoy sarnia with taste</p>
+            </div>
+            <div id="header">
+                <div id="tfheader"/>
+                <h:form id="tfnewsearch">
+                    <h:inputText class="tftextinput" value="#{postController.searchValue}"></h:inputText>
+                    <h:commandButton class="tfbutton" value="search" action="#{postController.getPostByTitle(postController.searchValue)}"/>
+
+                </h:form>
+
+                <div class="tfclear"></div>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li class="first"><a href="index.xhtml" accesskey="1" title="">Home</a></li>
+                    <li><a href="#" accesskey="2" title="">Restaurants</a></li>
+                    <li><a href="aboutus.xhtml" accesskey="3" title="">About Us</a></li>
+                    <li><a href="#" accesskey="4" title="">Careers</a></li>
+                    <li><a href="#" accesskey="5" title="">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="page">
+            
+             <h:dataTable 
             styleClass="Table"
             headerClass="Header"
             rowClasses="Row"
@@ -100,6 +82,10 @@
                 </h:form>
             
         </h:dataTable>
+        </div>
     </h:body>
+    
+    <footer><p class="lf">&copy; Copyright Sarnia Foodies</p> </footer>
+    
 </html>
 
