@@ -23,6 +23,15 @@ public class PostController {
     private List<post> posts;
     private post currentPost;
     private String searchValue;
+    int size;
+
+    public int getSize() {
+        return count();
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public String getSearchValue() {
         return searchValue;
@@ -141,7 +150,107 @@ public class PostController {
        
         return "each";
     }
-
+    public String adminPost(post post) {
+        currentPost = post;
+       
+        return "edit";
+    }
     
+    public int count(){
+        Connection conn;
+        try {
+            conn = utils.getConnection();
+            Statement st=conn.createStatement();
+            ResultSet rs=st.executeQuery("select coutn(*) as count from bistro");      
+            size = rs.getInt("count");
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            return size;
+    }
+
+    public String editPost(){
+        Connection con;
+                
+        try {
+            con = utils.getConnection();
+            
+            PreparedStatement pst = con.prepareStatement("Update bistro SET name = ?, menu = ?, price = ?, phone = ?, "
+                    + "address = ?, postal_code = ?, country_code = ?, latitude = ?, longitude = ?, mobile_url = ?, "
+                    + "rating = ?, snippet_text = ? where id = ?");
+            
+            pst.setString(1, currentPost.getName());
+            pst.setString(2, currentPost.getMenu());
+            pst.setString(3, currentPost.getPrice());
+            pst.setString(4, currentPost.getPhone());
+            pst.setString(5, currentPost.getAddress());
+            pst.setString(6, currentPost.getPostal_code());
+            pst.setString(7, currentPost.getCountry_code());
+            pst.setDouble(8, currentPost.getLatitude());
+            pst.setDouble(9, currentPost.getLongitude());
+            pst.setString(10, currentPost.getMobile_url());
+            pst.setString(11, currentPost.getRating());
+            pst.setString(12, currentPost.getSnippet_text());
+            pst.setInt(13, currentPost.getId());
+            
+            pst.executeUpdate();
+            con.close();
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getPostFromDB();
+        return "admin";
+    }
+    public String addPost(){
+        Connection conn;
+        
+        try {
+            conn = utils.getConnection();
+            
+            PreparedStatement pst = conn.prepareStatement("Insert into bistro(id, name, menu, price, phone, address, postal_code, country_code, latitude, longitude, mobile_url, rating, rating_image_url, snippet_text) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            
+            pst.setInt(1, currentPost.getId());
+            pst.setString(2, currentPost.getName());
+            pst.setString(3, currentPost.getMenu());
+            pst.setString(4, currentPost.getPrice());
+            pst.setString(5, currentPost.getPhone());
+            pst.setString(6, currentPost.getAddress());
+            pst.setString(7, currentPost.getPostal_code());
+            pst.setString(8, currentPost.getCountry_code());
+            pst.setDouble(9, currentPost.getLatitude());
+            pst.setDouble(10, currentPost.getLongitude());
+            pst.setString(11, currentPost.getMobile_url());
+            pst.setString(12, currentPost.getRating());
+            pst.setString(13, currentPost.getRating_image_url());
+            pst.setString(14, currentPost.getSnippet_text());
+            
+            int i = pst.executeUpdate();
+            getPostFromDB();
+            return "admin";
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public String deletePost(){
+        Connection con;
+                
+        try {
+            con = utils.getConnection();            
+            PreparedStatement pst = con.prepareStatement("Delete from bistro where id = ? ");
+            pst.setInt(1, currentPost.getId());
+            pst.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getPostFromDB();
+        return "admin";
+    }
     
 }
