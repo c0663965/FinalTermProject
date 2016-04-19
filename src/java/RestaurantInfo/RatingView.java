@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import RestaurantInfo.Restaurant;
-import org.primefaces.event.RateEvent;
+import RestaurantInfo.RateEvent;
 
 /**
  *

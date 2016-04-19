@@ -14,7 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.FlowEvent;
+import RestaurantInfo.FlowEvent;
 import RestaurantInfo.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
