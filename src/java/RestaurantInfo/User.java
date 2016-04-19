@@ -24,7 +24,25 @@ public class User implements Serializable {
     private String comm;
 
     private String email;
+    
+    private int restaurentId;
 
+    User() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    public int getRestaurentId() {
+        return restaurentId;
+    }
+
+    public void setRestaurentId(int restaurentId) {
+        this.restaurentId = restaurentId;
+    }
+    public User(String comm){
+        this.comm = comm;
+    }
     /**
      *
      * @return
