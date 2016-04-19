@@ -2,6 +2,19 @@ html, body {
     height: 100%;
 }
 
+
+.Table2 {
+    width:100%;
+    margin:0 auto;
+}
+
+#CommentTable th{
+    font-size: 35px;
+}
+#CommentTable tr{
+        padding: 11px;
+    font-size: 15px;
+}
 body {
     margin: 0px;
     padding: 0px;

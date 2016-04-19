@@ -38,6 +38,51 @@ public class UserWizard implements Serializable {
 
     private User user = new User();
     List<User> users ;
+    List<User> comments;
+
+    public UserWizard() {        
+        getAllFromDB();
+    }
+    
+    public List<User> getCommentsByID(){
+        comments =new ArrayList<>();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+           Map<String, Object> sessionMap = externalContext.getSessionMap();
+           
+           Integer id = (Integer) sessionMap.get("restraunID");
+        for (User p : users) {
+            if (p.getRestaurentId() == id) {
+               
+                comments.add(p);
+            }
+        }
+        return comments;
+    }
+    public void getAllFromDB(){
+        Connection conn;
+        try {
+            conn = utils.getConnection();
+
+            users = new ArrayList<>();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select first_name, last_name, comment, u.email, restaurant_id from users u join comments c on u.email = c.user_id");
+            while (rs.next()) {
+                User p = new User(
+                                rs.getString("first_name"),
+                                rs.getString("last_name"),
+                                rs.getString("comment"),
+                                rs.getString("email"),
+                                rs.getInt("restaurant_id")
+                );
+                users.add(p);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
+            // This Fails Silently -- Sets Post List as Empty
+            users = new ArrayList<>();
+        }
+    }
 
     public List<User> getUsers() {
         return users;
@@ -91,7 +136,7 @@ public class UserWizard implements Serializable {
     /**
      *
      */
-    public void save() {
+    public String  save() {
         Connection conn;
         try {
             conn = utils.getConnection();
@@ -118,9 +163,10 @@ public class UserWizard implements Serializable {
             Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-
+        getAllFromDB();
         FacesMessage msg = new FacesMessage("Successfully posted your comment", "Welcome :" + user.getFirstname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        return null;
     }
 
     /**

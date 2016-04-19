@@ -7,6 +7,11 @@
     <h:head>
         <title>Sarnia Foodies</title>
         <h:outputStylesheet library="css" name="styles2.css"/> 
+        <script>
+            function myFunction() {
+                location.reload();
+            }
+        </script>
     </h:head>
     <h:body>
         <div id="wrapper">
@@ -133,7 +138,7 @@
 
                         </h:panelGrid>
 
-                        <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" style="margin:5px" />
+                        <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" style="margin:5px" onclick="myFunction()"/>
 
                         <p:dialog header="Values" widgetVar="dlg" showEffect="fade" hideEffect="fade">
                             <h:panelGrid id="display" columns="2" cellpadding="5">
@@ -146,15 +151,21 @@
                     </h:form>
                     
                     <p>
+                        <h1>Comments</h1>
                         <h:dataTable 
-                            styleClass="Table"
+                            id="CommentTable"
+                            styleClass="Table2"
                             headerClass="Header"
                             rowClasses="Row"
-                            columnClasses="column1"
-                            value="#{userWizard.users}" var="comments">
-                            <h:column headerClass="th">
-                                <f:facet name="header">Commentas</f:facet>
+                            columnClasses="column"
+                            value="#{userWizard.commentsByID}" var="comments">
+                            <h:column headerClass="comth">
+                               
                                     #{comments.info}
+                            </h:column>
+                            <h:column headerClass="comth">
+                               
+                                    #{comments.email}
                             </h:column>
                             
                         </h:dataTable>

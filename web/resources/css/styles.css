@@ -16,6 +16,16 @@ html{
     font-weight:bold;
 
 }
+.comth{
+    color:white;
+    font-size:3.1em;
+    text-shadow:2px 2px darkgray;
+    font-weight:bold;
+}
+
+.column{
+    width: 400px;
+}
 
 .column1{
     width:320px;
